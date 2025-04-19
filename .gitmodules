@@ -1,3 +1,4 @@
 [submodule "binaryen"]
 	path = binaryen
-	url = https://github.com/WebAssembly/binaryen.git
+	url = https://github.com/pufferfish101007/binaryen.git
+	branch = non-nullable-table
