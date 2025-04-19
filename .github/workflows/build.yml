@@ -42,6 +42,7 @@ jobs:
     - name: "Check out repository"
       uses: actions/checkout@v1
       with:
+        fetch-depth: 10 # hopefully speed some things up
         submodules: false
     - name: "Set up repository"
       env:
