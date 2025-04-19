@@ -6,6 +6,7 @@ on:
   push:
     branches:
     - main
+    - non-nullable-table
   pull_request:
 env:
   BINARYEN_TOOLS: wasm-shell wasm-opt wasm-metadce wasm2js wasm-as wasm-dis wasm-ctor-eval wasm-reduce wasm-merge
@@ -125,17 +126,17 @@ jobs:
         echo "Creating tag v$VERSION ..."
         git tag "v$VERSION"
         git push -u origin "v$VERSION"
-    - name: "Publish to npm"
-      if: github.event_name == 'schedule' && matrix.emsdk == 'tot'
-      env:
-        NPM_REGISTRY: "registry.npmjs.org"
-        NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: |
-        npm config set "//${NPM_REGISTRY}/:_authToken=${NPM_AUTH_TOKEN}"
-        if [ $RELEASE ]; then
-          echo "Publishing release ..."
-          npm publish
-        else
-          echo "Publishing nightly ..."
+    # - name: "Publish to npm"
+    #   if: github.event_name == 'schedule' && matrix.emsdk == 'tot'
+    #   env:
+    #     NPM_REGISTRY: "registry.npmjs.org"
+    #     NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    #   run: |
+    #     npm config set "//${NPM_REGISTRY}/:_authToken=${NPM_AUTH_TOKEN}"
+    #     if [ $RELEASE ]; then
+    #       echo "Publishing release ..."
+    #       npm publish
+    #     else
+    #       echo "Publishing nightly ..."
           npm publish --tag nightly
         fi
