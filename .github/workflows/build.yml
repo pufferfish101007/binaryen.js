@@ -138,5 +138,5 @@ jobs:
     #       npm publish
     #     else
     #       echo "Publishing nightly ..."
-          npm publish --tag nightly
-        fi
+    #      npm publish --tag nightly
+    #    fi
