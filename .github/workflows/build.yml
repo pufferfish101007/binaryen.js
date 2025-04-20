@@ -113,6 +113,8 @@ jobs:
         done
     - name: "Push changes to GitHub"
       if: (github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'workflow_dispatch') && matrix.emsdk == 'tot'
+      env:
+        BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
       run: |
         git add ./binaryen ./index.js ./bin/*
         npm version $VERSION --no-git-tag-version --force
@@ -124,7 +126,7 @@ jobs:
           echo "Committing nightly ("$VERSION") ..."
           git commit -m "Nightly v$VERSION [ci skip]"
         fi
-        git push -u origin main
+        git push -u origin $BRANCH_NAME
         echo "Creating tag v$VERSION ..."
         git tag "v$VERSION"
         git push -u origin "v$VERSION"
