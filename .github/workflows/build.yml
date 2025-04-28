@@ -117,7 +117,7 @@ jobs:
         BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
       run: |
         git add ./binaryen ./index.js ./bin/*
-        if ! git status --cached --quiet; then
+        if ! git diff --cached --quiet; then
           echo "OK: Changes detected."
         else
           echo "WARNING: No changes were detected."
